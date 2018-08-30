@@ -10,9 +10,9 @@ class AddPatientForm extends Component {
   }
 
   setPatientDetails(){
-    if(typeof(this.props.location.state)!="undefined")
+    if(typeof(this.props.location.state)!=="undefined")
     {
-      return this.props.location.state.patient;
+      return this.props.location.state.data;
     }
     return null;
   }
@@ -20,7 +20,7 @@ class AddPatientForm extends Component {
   render() {
     return (
       <div className="row">
-        <div className="offset-md-2 col-md-8 p-5 text-center">
+        <div className="offset-lg-2 col-lg-8 p-3 text-center">
             <h2>Patient Profile</h2>
             <hr />
             <form className="text-left">
@@ -79,7 +79,7 @@ class AddPatientForm extends Component {
                       </select>
                     </div>
 
-                    <div className="col-md-3">
+                    <div className="col-md-3 mt-2 mt-md-0">
                       <label>Civil Status</label>
                       <select className="custom-select">
                           <option value="single">Single</option>

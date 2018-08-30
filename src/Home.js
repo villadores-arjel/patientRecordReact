@@ -6,9 +6,8 @@ import {
 
 import Navbar from './Navbar';
 import PatientList from './PatientList';
-import PatientRecordList from './PatientRecordList';
 import PatientProfileForm from './PatientProfileForm';
-import PatientRecordForm from './PatientRecordForm';
+import PatientRecords from './PatientRecords';
 
 class Home extends Component {
 
@@ -23,8 +22,7 @@ class Home extends Component {
               <Route exact path="/" component={PatientList} />
               <Route path="/addPatientForm" component={PatientProfileForm} />
               <Route path="/editProfileForm" render={ (props) => <PatientProfileForm {...props} /> } />
-              <Route path="/patientRecordList" render={ (props) => <PatientRecordList {...props} /> } />
-              <Route path="/addRecordForm" render={ (props) => <PatientRecordForm {...props} /> } />
+              <Route path="/patientRecords" render={ (props) => <PatientRecords {...props} /> } />
           </div>
         </HashRouter>
     );

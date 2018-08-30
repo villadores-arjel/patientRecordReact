@@ -1,81 +1,57 @@
 import React, { Component } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import { NavLink } from "react-router-dom";
-
-function EditProfileLink(props) {
-  return (
-    <NavLink to={{
-      pathname:"/editProfileForm",
-      state: {
-        patient: props.patient
-      }
-    }}>
-      <i className="fas fa-user-edit fa-lg text-info"></i>
-    </NavLink>
-  );
-}
-
-function ViewRecordsLink(props) {
-  return (
-    <NavLink to={{
-      pathname:"/patientRecordList",
-      state: {
-        patient: props.patient
-      }
-    }}>
-      <i className="fas fa-file-medical fa-lg text-info"></i>
-    </NavLink>
-  );
-}
+import ReactTable from "react-table";
+import 'react-table/react-table.css';
+import CustomLink from './CustomLink';
 
 class PatientList extends Component {
 
   render() {
-      const { SearchBar } = Search;
       const columns = [
           {
-            dataField: 'id',
-            text: 'Patient ID '
+            accessor: 'id',
+            Header: 'Patient ID ',
+            minWidth: 150
           },
           {
-            dataField: 'lastName',
-            text: 'Last Name',
-            sort: true
+            accessor: 'lastName',
+            Header: 'Last Name',
+            minWidth: 150
           },
           {
-            dataField: 'firstName',
-            text: 'First Name',
-            sort: true
+            accessor: 'firstName',
+            Header: 'First Name',
+            minWidth: 150
           },
           {
-            dataField: 'middleName',
-            text: 'Middle Name'
+            accessor: 'middleName',
+            Header: 'Middle Name',
+            minWidth: 150
           },
           {
-            dataField: 'suffixName',
-            text: 'Suffix Name'
+            accessor: 'suffixName',
+            Header: 'Suffix Name',
+            minWidth: 150
           },
           {
-            dataField: 'birthDate',
-            text: 'Birth Date'
+            accessor: 'birthDate',
+            Header: 'Birth Date',
+            minWidth: 150
           },
           {
-            dataField: 'editProfile',
-            text: 'Edit Profile'
+            accessor: 'editProfile',
+            Header: 'Edit Profile',
+            minWidth: 150
           },
           {
-            dataField: 'viewRecords',
-            text: 'View Records'
+            accessor: 'viewRecords',
+            Header: 'View Records',
+            minWidth: 150
           }
       ];
 
       const defaultSorted = [
           {
-            dataField: 'lastName',
-            order: 'asc'
+            id: 'lastName'
           }
       ];
 
@@ -87,8 +63,16 @@ class PatientList extends Component {
             middleName: "Villa",
             suffixName: "",
             birthDate: "August 29, 2015",
-            editProfile: <EditProfileLink patient={2} />,
-            viewRecords:  <ViewRecordsLink patient={2} />
+            editProfile: <CustomLink
+                            data={2}
+                            pathname={"/editProfileForm"}
+                            iconClass={'fas fa-user-edit fa-lg text-info'}
+                          />,
+            viewRecords:  <CustomLink
+                            data={2}
+                            pathname={"/patientRecords"}
+                            iconClass={'fas fa-folder-open fa-lg text-info'}
+                          />
           },
           {
             id: 1,
@@ -97,35 +81,33 @@ class PatientList extends Component {
             middleName: "Villa",
             suffixName: "",
             birthDate: "August 29, 2015",
-            editProfile: <EditProfileLink patient={1} />,
-            viewRecords: <ViewRecordsLink patient={1} />
+            editProfile: <CustomLink
+                            data={1}
+                            pathname={"/editProfileForm"}
+                            iconClass={'fas fa-user-edit fa-lg text-info'}
+                          />,
+            viewRecords:  <CustomLink
+                            data={1}
+                            pathname={"/patientRecords"}
+                            iconClass={'fas fa-folder-open fa-lg text-info'}
+                          />
           }
       ];
 
     return (
       <div className="row">
-        <div className="offset-md-2 col-md-8 p-5 text-center">
+        <div className="offset-lg-1 col-lg-10 p-2 text-center">
             <h2>Patient List</h2>
-            <div className="table-responsive-sm">
-              <ToolkitProvider
-                bootstrap4
-                keyField="id"
-                data={ patients }
-                columns={ columns }
+            <div className="mt-4 table-responsive-sm">
+            <ReactTable
+                data={patients}
+                columns={columns}
+                defaultPageSize={5}
+                minRows={5}
                 defaultSorted={ defaultSorted }
-                pagination={ paginationFactory() }
-                search
-              >
-              {
-                props => (
-                  <div>
-                    <SearchBar { ...props.searchProps } />
-                    <hr />
-                    <BootstrapTable { ...props.baseProps } />
-                  </div>
-                )
-              }
-              </ToolkitProvider>
+                className="-striped -highlight"
+                filterable
+              />
             </div>
         </div>
       </div>
